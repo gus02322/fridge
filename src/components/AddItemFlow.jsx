@@ -6,13 +6,20 @@ import { playCollect } from '../utils/sound'
 
 // Flow d'ajout façon petit jeu : catégorie → item → quantité, avec
 // un feedback "collecté" satisfaisant (anneau + "+n" + son + compteur).
-export default function AddItemFlow({ onClose, onCollect, muted }) {
+export default function AddItemFlow({ onClose, onCollect, muted, zone = null }) {
   const [catId, setCatId] = useState(null)
   const [sheet, setSheet] = useState(null) // item tracké en cours de quantité
   const [collected, setCollected] = useState(0) // compteur de session
   const [burstKey, setBurstKey] = useState(null) // id d'item qui vient d'éclater
 
-  const category = CATALOG.find((c) => c.id === catId)
+  // Si on range dans un meuble précis, on ne propose que ses items.
+  const catalog = zone
+    ? CATALOG.map((c) => ({ ...c, items: c.items.filter((i) => i.zone === zone) })).filter(
+        (c) => c.items.length > 0,
+      )
+    : CATALOG
+
+  const category = catalog.find((c) => c.id === catId)
 
   function fireFeedback(itemId, amount) {
     if (!muted) playCollect()
@@ -76,7 +83,7 @@ export default function AddItemFlow({ onClose, onCollect, muted }) {
         {/* Contenu scrollable */}
         <div className="min-h-0 flex-1 overflow-y-auto p-4">
           {!category ? (
-            <CategoryGrid onPick={setCatId} />
+            <CategoryGrid catalog={catalog} onPick={setCatId} />
           ) : (
             <ItemGrid
               category={category}
@@ -99,10 +106,10 @@ export default function AddItemFlow({ onClose, onCollect, muted }) {
   )
 }
 
-function CategoryGrid({ onPick }) {
+function CategoryGrid({ catalog, onPick }) {
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-      {CATALOG.map((c) => (
+      {catalog.map((c) => (
         <button
           key={c.id}
           onClick={() => onPick(c.id)}
