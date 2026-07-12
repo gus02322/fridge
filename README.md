@@ -1,6 +1,6 @@
 # Frigo virtuel 🧊 — App complète (4 / 4)
 
-Un frigo virtuel gamifié pour cuisiner. Inventaire → menu par IA →
+Un frigo virtuel gamifié pour cuisiner. Inventaire → menu (recettes locales) →
 planning & cuisine → **nutrition & score**.
 React + Vite + Tailwind, état React + `localStorage`, pas de backend applicatif.
 
@@ -11,15 +11,10 @@ npm install
 npm run dev
 ```
 
-Pour l'étape 2, la clé Anthropic n'est **jamais** exposée au navigateur : le
-front appelle un chemin relatif `/v1/messages`, et le proxy de dev de Vite
-(`vite.config.js`) y injecte `x-api-key` côté serveur depuis
-`ANTHROPIC_API_KEY`. Rien à saisir dans l'UI.
-
-```bash
-export ANTHROPIC_API_KEY=sk-...   # lu par le proxy de dev, jamais bundlé
-npm run dev
-```
+Aucune clé, aucun backend, aucun appel réseau : les recettes sont lues depuis
+un fichier local **`src/data/recipes.json`** livré avec le projet. L'app tourne
+entièrement côté client (parfait pour un hébergement statique type GitHub
+Pages).
 
 ## Ce que contient l'étape 1
 
@@ -32,32 +27,58 @@ npm run dev
   « j'en ai / j'en ai plus »).
 - **Persistance** `localStorage`.
 
-## Ce que contient l'étape 2
+## Ce que contient l'étape 2 — recettes locales
 
-- Onglet **Cuisine** : bouton « Générer le menu » qui envoie l'inventaire à
-  l'API Anthropic (`POST /v1/messages`, modèle `claude-sonnet-4-6`).
-- **Règles strictes** : l'IA répond uniquement en JSON structuré (parsé en
-  sécurité, jamais de confiance aveugle), pioche uniquement dans les
-  ingrédients présents, et classe chaque recette en 3 niveaux :
+- Onglet **Cuisine** : bouton « Générer le menu » qui **matche les recettes du
+  fichier local** `src/data/recipes.json` avec le frigo. Aucun réseau.
+- **Matching à 3 niveaux**, calculé côté client à partir du nombre
+  d'ingrédients manquants (un ingrédient est « présent » s'il figure dans le
+  frigo, matching par nom sans accents) :
   `cuisinable` (0 manquant), `presque` (1 manquant), `ambitieuse` (2+).
-  Le niveau est **recalculé côté client** à partir des ingrédients manquants.
 - **Recettes triées** par niveau (cuisinable en haut) avec un état de
   déblocage visuel type jeu : prêt 🍳 / à un pas 🔓 / verrouillé 🔒.
 - **Liste de courses déduite** : agrège les ingrédients manquants et indique,
-  pour chacun, combien de plats il débloque (« Achète du lait de coco →
+  pour chacun, combien de plats il débloque (« Achète Huile d'olive →
   débloque 3 plats »), triée par plats débloqués.
 - Dernier menu persisté dans `localStorage`.
 
-Fichiers clés : `src/api/anthropic.js` (appel + parse sécurisé),
-`src/utils/menu.js` (normalisation, tri, liste de courses),
+### Ajouter / remplacer les recettes
+
+Tout vit dans **`src/data/recipes.json`** — un simple tableau JSON. Colle
+autant de recettes que tu veux en respectant ce format :
+
+```json
+{
+  "titre": "Omelette aux champignons",
+  "temps_min": 12,
+  "portions_base": 2,
+  "calories": 290, "proteines": 20, "lipides": 22, "glucides": 4,
+  "etapes": ["Étape 1…", "Étape 2…"],
+  "ingredients": [
+    { "nom": "Œufs", "quantite": 4, "unite": "pièce" },
+    { "nom": "Beurre", "quantite": null, "unite": "" }
+  ]
+}
+```
+
+- **Pas de champ `present`** : la présence est calculée en direct depuis le
+  frigo. Le `nom` d'un ingrédient doit correspondre au nom de l'item du frigo
+  (voir `src/data/catalog.js` : `Œufs`, `Champignons`, `Pâtes`, `Ail`,
+  `Huile d'olive`, `Sel`… — accents et casse ignorés au matching).
+- `quantite: null` (ou `unite: ""`) pour les basiques (sel, huile, ail…) :
+  affichés sans quantité et non mis à l'échelle par convive.
+- Nutrition (`calories`, `proteines`, `lipides`, `glucides`) par portion,
+  optionnelle.
+
+Fichiers clés : `src/data/recipes.json` (les recettes),
+`src/utils/menu.js` (matching frigo, tri, liste de courses),
 `src/components/{MenuView,RecipeCard,ShoppingList}.jsx`.
 
 ## Ce que contient l'étape 3
 
-- **Paramètres de génération** envoyés à l'IA en plus de l'inventaire :
-  curseur de **temps de prépa max** (minutes) et **mode express**
-  (« ⚡ J'ai 20 min ») qui force `temps_min <= 20` et niveau `cuisinable`
-  (contrainte appliquée aussi en garde-fou côté client).
+- **Paramètres de filtrage** appliqués au matching : curseur de **temps de
+  prépa max** (minutes) et **mode express** (« ⚡ J'ai 20 min ») qui ne garde
+  que les recettes `temps_min <= 20` et de niveau `cuisinable`.
 - **Planning hebdo** (onglet Semaine) : 7 jours, 2 repas/jour, avec un
   nombre de **convives réglable par repas**. Modèle
   `Jour : { date, jour, repas:[{ type:"dej"|"diner", convives, recette?, cuisine? }] }`.
@@ -75,9 +96,9 @@ consommation), `src/components/WeekView.jsx`.
 - **Profil utilisateur** (onglet Profil) `{ sexe, age, poids, taille, activite }`
   avec `activite = "sedentaire" | "actif" | "sportif"`. Besoin calorique
   quotidien calculé par **Mifflin-St Jeor** et **stocké** dans le profil.
-- **Valeur nutritionnelle des recettes** : l'IA estime aussi
-  `{ calories, proteines, lipides, glucides }` par portion (ajoutés au format
-  recette, réponse toujours JSON strict). Affichés sur chaque recette.
+- **Valeur nutritionnelle des recettes** : chaque recette de `recipes.json`
+  porte `{ calories, proteines, lipides, glucides }` par portion. Affichés sur
+  chaque recette.
 - **Couverture** : sur le planning, chaque repas indique
   « ce repas couvre ~X% de ton besoin » (+ total par journée). Indicatif.
 - **Système de points ludique et de RÉCOMPENSE** : note l'**équilibre** et la

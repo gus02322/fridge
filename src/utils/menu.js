@@ -1,5 +1,8 @@
-// Traitement des recettes renvoyées par l'IA : normalisation, tri par
-// niveau de déblocage, et déduction de la liste de courses.
+// Traitement des recettes LOCALES (src/data/recipes.json) : matching avec le
+// frigo, normalisation, tri par niveau de déblocage, et déduction de la liste
+// de courses. Plus aucun appel réseau : tout est calculé côté client.
+
+import { normNom } from './planning'
 
 // État de déblocage façon jeu, par niveau.
 export const NIVEAU_META = {
@@ -8,15 +11,32 @@ export const NIVEAU_META = {
   ambitieuse: { rang: 2, label: 'Verrouillé', emoji: '🔒', tint: 'slate' },
 }
 
-// Normalise une recette brute et RECALCULE son niveau à partir des
-// ingrédients manquants — on ne fait jamais confiance au libellé de l'IA.
-export function normalizeRecette(r, index) {
+const num = (v) => (Number.isFinite(+v) && v != null && v !== '' ? Math.round(+v) : null)
+
+// Ensemble des noms d'ingrédients réellement DISPONIBLES dans le frigo.
+//  - staple : présent tant que `present` n'est pas explicitement false.
+//  - tracké : présent si la quantité est > 0.
+// Le nom est normalisé (sans accents, minuscules) pour le matching.
+export function presentSet(items) {
+  const set = new Set()
+  for (const it of items || []) {
+    const dispo = it.type === 'staple' ? it.present !== false : (it.quantite ?? 0) > 0
+    if (dispo) set.add(normNom(it.nom))
+  }
+  return set
+}
+
+// Normalise une recette brute et CALCULE son niveau à partir des ingrédients
+// présents dans le frigo. Un ingrédient est `present` s'il figure dans le
+// frigo (matching par nom normalisé). Le niveau dépend du nombre de manquants :
+//   0 manquant -> cuisinable · 1 -> presque · 2+ -> ambitieuse.
+export function normalizeRecette(r, index, present = new Set()) {
   const ingredients = (Array.isArray(r?.ingredients) ? r.ingredients : [])
     .map((i) => ({
       nom: String(i?.nom ?? '').trim(),
       quantite: i?.quantite ?? null,
       unite: String(i?.unite ?? '').trim(),
-      present: i?.present === true,
+      present: present.has(normNom(i?.nom)),
     }))
     .filter((i) => i.nom)
 
@@ -33,7 +53,7 @@ export function normalizeRecette(r, index) {
     etapes: (Array.isArray(r?.etapes) ? r.etapes : []).map(String).filter(Boolean),
     temps_min: Number.isFinite(+r?.temps_min) ? +r.temps_min : null,
     portions_base: Number.isFinite(+r?.portions_base) ? +r.portions_base : null,
-    // Nutrition estimée par portion (étape 4). Null si absent.
+    // Nutrition estimée par portion. Null si absent.
     calories: num(r?.calories),
     proteines: num(r?.proteines),
     lipides: num(r?.lipides),
@@ -41,12 +61,13 @@ export function normalizeRecette(r, index) {
   }
 }
 
-const num = (v) => (Number.isFinite(+v) && v != null && v !== '' ? Math.round(+v) : null)
-
-// Recettes triées : cuisinable en haut, puis presque, puis ambitieuse.
-export function normalizeMenu(recettesBrutes) {
-  return recettesBrutes
-    .map(normalizeRecette)
+// Matche le catalogue de recettes local avec le frigo, puis trie :
+// cuisinable en haut, puis presque, puis ambitieuse (et à niveau égal, le
+// moins de manquants et le plus rapide en premier).
+export function matchMenu(recipes, items) {
+  const present = presentSet(items)
+  return (Array.isArray(recipes) ? recipes : [])
+    .map((r, i) => normalizeRecette(r, i, present))
     .filter((r) => r.ingredients.length > 0)
     .sort(
       (a, b) =>

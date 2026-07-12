@@ -1,50 +1,42 @@
 import { useMemo, useState } from 'react'
-import { genererMenu } from '../api/anthropic'
-import { normalizeMenu, buildListeCourses } from '../utils/menu'
+import RECIPES from '../data/recipes.json'
+import { matchMenu, buildListeCourses } from '../utils/menu'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { playCollect } from '../utils/sound'
 import RecipeCard from './RecipeCard'
 import ShoppingList from './ShoppingList'
 
 export default function MenuView({ items, muted }) {
-  // Dernier menu généré, persisté (pas de backend).
+  // Dernier menu affiché, persisté. Les recettes viennent d'un fichier local
+  // (src/data/recipes.json) — aucun appel réseau.
   const [recettes, setRecettes] = useLocalStorage('frigo.menu.v1', [])
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  // Paramètres de génération.
+  // Paramètres de filtrage.
   const [tempsMax, setTempsMax] = useLocalStorage('frigo.tempsMax.v1', 45)
   const [express, setExpress] = useState(false)
 
   const courses = useMemo(() => buildListeCourses(recettes), [recettes])
   const cuisinables = recettes.filter((r) => r.niveau === 'cuisinable').length
 
-  async function handleGenerer(opts = {}) {
+  // Matche les recettes locales avec le frigo, applique la contrainte de temps.
+  function handleGenerer(opts = {}) {
     const isExpress = opts.express ?? express
-    setLoading(true)
     setError(null)
-    try {
-      const brutes = await genererMenu(items, { tempsMax, express: isExpress })
-      let menu = normalizeMenu(brutes)
-      // Garde-fou : on applique la contrainte même si l'IA la relâche.
-      if (isExpress) {
-        menu = menu.filter(
-          (r) => r.niveau === 'cuisinable' && (r.temps_min == null || r.temps_min <= 20),
-        )
-      } else {
-        menu = menu.filter((r) => r.temps_min == null || r.temps_min <= tempsMax)
-      }
-      if (menu.length === 0) {
-        setError('Aucune recette ne respecte la contrainte de temps. Réessaie ou augmente le temps.')
-      } else if (!muted) {
-        playCollect()
-      }
-      setRecettes(menu)
-    } catch (e) {
-      setError(e.message || 'Une erreur est survenue')
-    } finally {
-      setLoading(false)
+    let menu = matchMenu(RECIPES, items)
+    if (isExpress) {
+      menu = menu.filter(
+        (r) => r.niveau === 'cuisinable' && (r.temps_min == null || r.temps_min <= 20),
+      )
+    } else {
+      menu = menu.filter((r) => r.temps_min == null || r.temps_min <= tempsMax)
     }
+    if (menu.length === 0) {
+      setError('Aucune recette ne respecte la contrainte de temps. Réessaie ou augmente le temps.')
+    } else if (!muted) {
+      playCollect()
+    }
+    setRecettes(menu)
   }
 
   return (
@@ -62,20 +54,10 @@ export default function MenuView({ items, muted }) {
         </div>
         <button
           onClick={() => handleGenerer()}
-          disabled={loading}
-          className="flex items-center gap-2 rounded-full bg-emerald-400 px-5 py-3 font-display text-base font-800 text-white shadow-chunky transition hover:bg-emerald-500 active:translate-y-0.5 disabled:opacity-60"
+          className="flex items-center gap-2 rounded-full bg-emerald-400 px-5 py-3 font-display text-base font-800 text-white shadow-chunky transition hover:bg-emerald-500 active:translate-y-0.5"
         >
-          {loading ? (
-            <>
-              <span className="inline-block animate-wiggle text-xl">🍳</span>
-              Le chef réfléchit…
-            </>
-          ) : (
-            <>
-              <span className="text-xl">✨</span>
-              {recettes.length > 0 ? 'Régénérer' : 'Générer le menu'}
-            </>
-          )}
+          <span className="text-xl">✨</span>
+          {recettes.length > 0 ? 'Régénérer' : 'Générer le menu'}
         </button>
       </div>
 
@@ -109,8 +91,7 @@ export default function MenuView({ items, muted }) {
             setExpress(next)
             handleGenerer({ express: next })
           }}
-          disabled={loading}
-          className={`flex items-center gap-2 rounded-2xl px-4 py-2.5 font-display text-sm font-800 shadow-chunky transition active:translate-y-0.5 disabled:opacity-60 ${
+          className={`flex items-center gap-2 rounded-2xl px-4 py-2.5 font-display text-sm font-800 shadow-chunky transition active:translate-y-0.5 ${
             express
               ? 'bg-amber-400 text-white'
               : 'bg-white text-slate-600 hover:bg-amber-50'
@@ -127,18 +108,7 @@ export default function MenuView({ items, muted }) {
         </div>
       )}
 
-      {loading && recettes.length === 0 && (
-        <div className="grid gap-2 sm:grid-cols-2">
-          {[0, 1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="h-20 animate-pulse rounded-2xl border-2 border-white bg-white/60"
-            />
-          ))}
-        </div>
-      )}
-
-      {!loading && recettes.length === 0 && !error && (
+      {recettes.length === 0 && !error && (
         <div className="flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-white bg-white/50 py-14 text-center">
           <span className="text-5xl">👨‍🍳</span>
           <p className="mt-2 px-6 font-display text-base font-800 text-slate-500">

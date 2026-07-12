@@ -1,0 +1,206 @@
+[
+  {
+    "titre": "Omelette aux champignons",
+    "temps_min": 12,
+    "portions_base": 2,
+    "calories": 290,
+    "proteines": 20,
+    "lipides": 22,
+    "glucides": 3,
+    "etapes": [
+      "Émince les champignons et fais-les revenir au beurre.",
+      "Bats les œufs, sale, poivre, verse dans la poêle.",
+      "Plie l'omelette quand elle est encore baveuse."
+    ],
+    "ingredients": [
+      { "nom": "Œufs", "quantite": 4, "unite": "pièce" },
+      { "nom": "Champignons", "quantite": 1, "unite": "portion" },
+      { "nom": "Beurre", "quantite": null, "unite": "" },
+      { "nom": "Sel", "quantite": null, "unite": "" },
+      { "nom": "Poivre", "quantite": null, "unite": "" }
+    ]
+  },
+  {
+    "titre": "Pâtes à l'ail et huile d'olive",
+    "temps_min": 15,
+    "portions_base": 2,
+    "calories": 420,
+    "proteines": 12,
+    "lipides": 14,
+    "glucides": 60,
+    "etapes": [
+      "Fais cuire les pâtes al dente.",
+      "Fais blondir l'ail dans l'huile d'olive.",
+      "Mélange, sale, ajoute le basilic ciselé."
+    ],
+    "ingredients": [
+      { "nom": "Pâtes", "quantite": 1, "unite": "paquet" },
+      { "nom": "Ail", "quantite": null, "unite": "" },
+      { "nom": "Huile d'olive", "quantite": null, "unite": "" },
+      { "nom": "Sel", "quantite": null, "unite": "" },
+      { "nom": "Basilic", "quantite": null, "unite": "" }
+    ]
+  },
+  {
+    "titre": "Poulet rôti aux pommes de terre",
+    "temps_min": 50,
+    "portions_base": 2,
+    "calories": 520,
+    "proteines": 40,
+    "lipides": 22,
+    "glucides": 35,
+    "etapes": [
+      "Enrobe le poulet et les pommes de terre d'huile d'olive et d'herbes.",
+      "Enfourne à 200°C pendant 40 min.",
+      "Sale à la sortie du four."
+    ],
+    "ingredients": [
+      { "nom": "Poulet", "quantite": 2, "unite": "portion" },
+      { "nom": "Pommes de terre", "quantite": 1, "unite": "niveau" },
+      { "nom": "Huile d'olive", "quantite": null, "unite": "" },
+      { "nom": "Herbes de Provence", "quantite": null, "unite": "" },
+      { "nom": "Sel", "quantite": null, "unite": "" }
+    ]
+  },
+  {
+    "titre": "Salade tomate & avocat",
+    "temps_min": 10,
+    "portions_base": 2,
+    "calories": 260,
+    "proteines": 4,
+    "lipides": 22,
+    "glucides": 12,
+    "etapes": [
+      "Coupe les tomates et l'avocat en morceaux.",
+      "Assaisonne d'huile d'olive, sel et poivre."
+    ],
+    "ingredients": [
+      { "nom": "Tomate", "quantite": 2, "unite": "pièce" },
+      { "nom": "Avocat", "quantite": 1, "unite": "pièce" },
+      { "nom": "Huile d'olive", "quantite": null, "unite": "" },
+      { "nom": "Sel", "quantite": null, "unite": "" },
+      { "nom": "Poivre", "quantite": null, "unite": "" }
+    ]
+  },
+  {
+    "titre": "Riz sauté aux légumes",
+    "temps_min": 25,
+    "portions_base": 2,
+    "calories": 380,
+    "proteines": 9,
+    "lipides": 8,
+    "glucides": 68,
+    "etapes": [
+      "Fais cuire le riz.",
+      "Fais sauter oignon, carotte et poivron émincés.",
+      "Ajoute le riz et la sauce soja, mélange à feu vif."
+    ],
+    "ingredients": [
+      { "nom": "Riz", "quantite": 1, "unite": "paquet" },
+      { "nom": "Carotte", "quantite": 1, "unite": "pièce" },
+      { "nom": "Poivron", "quantite": 1, "unite": "pièce" },
+      { "nom": "Oignon", "quantite": 1, "unite": "pièce" },
+      { "nom": "Sauce soja", "quantite": null, "unite": "" }
+    ]
+  },
+  {
+    "titre": "Curry de lentilles",
+    "temps_min": 35,
+    "portions_base": 3,
+    "calories": 410,
+    "proteines": 18,
+    "lipides": 10,
+    "glucides": 60,
+    "etapes": [
+      "Fais revenir oignon et ail.",
+      "Ajoute les lentilles, le curry et le lait, couvre d'eau.",
+      "Laisse mijoter 25 min jusqu'à ce que ce soit fondant."
+    ],
+    "ingredients": [
+      { "nom": "Lentilles", "quantite": 1, "unite": "paquet" },
+      { "nom": "Oignon", "quantite": 1, "unite": "pièce" },
+      { "nom": "Ail", "quantite": null, "unite": "" },
+      { "nom": "Curry", "quantite": null, "unite": "" },
+      { "nom": "Lait", "quantite": 1, "unite": "paquet" }
+    ]
+  },
+  {
+    "titre": "Œufs brouillés sur pain",
+    "temps_min": 10,
+    "portions_base": 1,
+    "calories": 350,
+    "proteines": 18,
+    "lipides": 18,
+    "glucides": 30,
+    "etapes": [
+      "Bats les œufs et fais-les brouiller doucement au beurre.",
+      "Sale, sers sur du pain grillé."
+    ],
+    "ingredients": [
+      { "nom": "Œufs", "quantite": 3, "unite": "pièce" },
+      { "nom": "Pain", "quantite": 2, "unite": "pièce" },
+      { "nom": "Beurre", "quantite": null, "unite": "" },
+      { "nom": "Sel", "quantite": null, "unite": "" }
+    ]
+  },
+  {
+    "titre": "Soupe de brocoli",
+    "temps_min": 30,
+    "portions_base": 3,
+    "calories": 180,
+    "proteines": 6,
+    "lipides": 10,
+    "glucides": 16,
+    "etapes": [
+      "Fais fondre l'oignon, ajoute le brocoli et couvre d'eau.",
+      "Cuis 20 min, mixe avec la crème, sale et poivre."
+    ],
+    "ingredients": [
+      { "nom": "Brocoli", "quantite": 2, "unite": "pièce" },
+      { "nom": "Oignon", "quantite": 1, "unite": "pièce" },
+      { "nom": "Crème", "quantite": null, "unite": "" },
+      { "nom": "Sel", "quantite": null, "unite": "" },
+      { "nom": "Poivre", "quantite": null, "unite": "" }
+    ]
+  },
+  {
+    "titre": "Poêlée poulet & courgette",
+    "temps_min": 25,
+    "portions_base": 2,
+    "calories": 430,
+    "proteines": 38,
+    "lipides": 20,
+    "glucides": 14,
+    "etapes": [
+      "Coupe le poulet et les courgettes en morceaux.",
+      "Fais sauter à l'huile d'olive avec l'ail et le paprika.",
+      "Sale en fin de cuisson."
+    ],
+    "ingredients": [
+      { "nom": "Poulet", "quantite": 2, "unite": "portion" },
+      { "nom": "Courgette", "quantite": 2, "unite": "pièce" },
+      { "nom": "Ail", "quantite": null, "unite": "" },
+      { "nom": "Huile d'olive", "quantite": null, "unite": "" },
+      { "nom": "Paprika", "quantite": null, "unite": "" },
+      { "nom": "Sel", "quantite": null, "unite": "" }
+    ]
+  },
+  {
+    "titre": "Yaourt aux fraises & miel",
+    "temps_min": 5,
+    "portions_base": 2,
+    "calories": 160,
+    "proteines": 6,
+    "lipides": 3,
+    "glucides": 26,
+    "etapes": [
+      "Coupe les fraises.",
+      "Mélange au yaourt, nappe de miel."
+    ],
+    "ingredients": [
+      { "nom": "Yaourt", "quantite": 2, "unite": "pièce" },
+      { "nom": "Fraises", "quantite": 1, "unite": "portion" },
+      { "nom": "Miel", "quantite": null, "unite": "" }
+    ]
+  }
+]
