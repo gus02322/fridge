@@ -11,10 +11,28 @@ npm install
 npm run dev
 ```
 
-Aucune clé, aucun backend, aucun appel réseau : les recettes sont lues depuis
-un fichier local **`src/data/recipes.json`** livré avec le projet. L'app tourne
-entièrement côté client (parfait pour un hébergement statique type GitHub
-Pages).
+## Comptes & stockage cloud (Firebase)
+
+L'app exige une **connexion** (e-mail + mot de passe via Firebase Auth). Les
+données de chaque utilisateur (frigo, placards, épices, planning, profil, menu)
+sont stockées dans **Cloud Firestore**, dans un unique document `users/{uid}` —
+chacun ne voit que ses propres données. Un `useCloudState(clé, défaut)`
+(`src/data/CloudStore.jsx`) remplace l'ancien `useLocalStorage` avec la même
+API, et migre automatiquement les données locales existantes au premier login.
+
+La config web Firebase (`src/firebase.js`) est un identifiant **public** ; la
+sécurité vient des règles Firestore (`firestore.rules`).
+
+**À faire une fois dans la console Firebase** (voir aussi le résumé pas-à-pas
+fourni séparément) :
+1. **Authentication → Sign-in method** : activer **E-mail/Mot de passe**.
+2. **Authentication → Settings → Authorized domains** : ajouter
+   `gus02322.github.io`.
+3. **Firestore Database → Create database**.
+4. **Firestore → Rules** : coller le contenu de `firestore.rules` et publier.
+
+Les recettes, elles, restent locales (**`src/data/recipes.json`**) : le front
+est un site statique (GitHub Pages) et Firebase fournit l'auth + la base.
 
 ## Ce que contient l'étape 1
 

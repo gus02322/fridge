@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useLocalStorage } from '../hooks/useLocalStorage'
+import { useCloudState } from '../data/CloudStore'
 import { SEXES, ACTIVITES, besoinCalorique } from '../utils/nutrition'
 
 const DEFAULT = { sexe: 'femme', age: 30, poids: 65, taille: 168, activite: 'actif' }
@@ -7,7 +7,7 @@ const DEFAULT = { sexe: 'femme', age: 30, poids: 65, taille: 168, activite: 'act
 // Profil utilisateur + besoin calorique quotidien (Mifflin-St Jeor).
 // Le résultat est stocké dans le profil persisté.
 export default function ProfileView() {
-  const [profil, setProfil] = useLocalStorage('frigo.profil.v1', {
+  const [profil, setProfil] = useCloudState('frigo.profil.v1', {
     ...DEFAULT,
     besoin: besoinCalorique(DEFAULT),
   })

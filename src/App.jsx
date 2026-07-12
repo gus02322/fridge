@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
-import { useLocalStorage } from './hooks/useLocalStorage'
+import { useCloudState } from './data/CloudStore'
+import { useAuth } from './auth/AuthProvider'
 import { nomsMatch } from './utils/planning'
 import InventoryView from './components/InventoryView'
 import MenuView from './components/MenuView'
@@ -16,8 +17,9 @@ const TABS = [
 ]
 
 export default function App() {
-  const [items, setItems] = useLocalStorage(STORAGE_KEY, [])
-  const [muted, setMuted] = useLocalStorage('frigo.muted.v1', false)
+  const { user, logOut } = useAuth()
+  const [items, setItems] = useCloudState(STORAGE_KEY, [])
+  const [muted, setMuted] = useCloudState('frigo.muted.v1', false)
   const [view, setView] = useState('frigo')
 
   // Total "collecté" affiché dans le compteur du bandeau.
@@ -136,6 +138,17 @@ Frigo · cuisine · semaine · nutrition
             aria-label="Son"
           >
             {muted ? '🔇' : '🔊'}
+          </button>
+          <button
+            onClick={logOut}
+            className="flex h-11 items-center gap-1.5 rounded-2xl bg-white/80 px-3 text-lg shadow-tile transition active:translate-y-0.5"
+            title={`Connecté : ${user?.email ?? ''} — se déconnecter`}
+            aria-label="Se déconnecter"
+          >
+            👋
+            <span className="hidden max-w-[120px] truncate font-body text-xs font-700 text-slate-400 sm:inline">
+              {user?.email}
+            </span>
           </button>
         </div>
       </header>

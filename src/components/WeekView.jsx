@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useLocalStorage } from '../hooks/useLocalStorage'
+import { useCloudState } from '../data/CloudStore'
 import {
   REPAS,
   initWeek,
@@ -23,9 +23,9 @@ const NIVEAU_DOT = {
 // Calendrier semaine : menu assigné par jour/repas, mise à l'échelle
 // aux convives, et boucle "j'ai cuisiné" qui vide le frigo.
 export default function WeekView({ onCook, muted }) {
-  const [week, setWeek] = useLocalStorage('frigo.planning.v1', initWeek())
-  const [menu] = useLocalStorage('frigo.menu.v1', [])
-  const [profil] = useLocalStorage('frigo.profil.v1', null)
+  const [week, setWeek] = useCloudState('frigo.planning.v1', initWeek())
+  const [menu] = useCloudState('frigo.menu.v1', [])
+  const [profil] = useCloudState('frigo.profil.v1', null)
   const besoin = profil?.besoin ?? besoinCalorique(profil)
   const [picker, setPicker] = useState(null) // { di, mi }
   const [flash, setFlash] = useState(null) // { di, mi, count }

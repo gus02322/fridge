@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import RECIPES from '../data/recipes.json'
 import { matchMenu, buildListeCourses } from '../utils/menu'
-import { useLocalStorage } from '../hooks/useLocalStorage'
+import { useCloudState } from '../data/CloudStore'
 import { playCollect } from '../utils/sound'
 import RecipeCard from './RecipeCard'
 import ShoppingList from './ShoppingList'
@@ -9,11 +9,11 @@ import ShoppingList from './ShoppingList'
 export default function MenuView({ items, muted }) {
   // Dernier menu affiché, persisté. Les recettes viennent d'un fichier local
   // (src/data/recipes.json) — aucun appel réseau.
-  const [recettes, setRecettes] = useLocalStorage('frigo.menu.v1', [])
+  const [recettes, setRecettes] = useCloudState('frigo.menu.v1', [])
   const [error, setError] = useState(null)
 
   // Paramètres de filtrage.
-  const [tempsMax, setTempsMax] = useLocalStorage('frigo.tempsMax.v1', 45)
+  const [tempsMax, setTempsMax] = useCloudState('frigo.tempsMax.v1', 45)
   const [express, setExpress] = useState(false)
 
   const courses = useMemo(() => buildListeCourses(recettes), [recettes])
