@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { SEXES, ACTIVITES, besoinCalorique } from '../utils/nutrition'
 
@@ -11,6 +12,10 @@ export default function ProfileView() {
     besoin: besoinCalorique(DEFAULT),
   })
 
+  // Brouillons de saisie par champ : permettent de vider/retaper un nombre
+  // librement (sans « 0 » fantôme) pendant l'édition.
+  const [drafts, setDrafts] = useState({})
+
   function patch(p) {
     setProfil((prev) => {
       const next = { ...prev, ...p }
@@ -18,22 +23,43 @@ export default function ProfileView() {
     })
   }
 
-  const num = (key, label, unit, min, max) => (
-    <label className="flex flex-col gap-1">
-      <span className="font-display text-xs font-800 text-slate-500">{label}</span>
-      <div className="flex items-center gap-2 rounded-2xl border-2 border-white bg-white/80 px-3 py-2 shadow-tile">
-        <input
-          type="number"
-          min={min}
-          max={max}
-          value={profil[key] ?? ''}
-          onChange={(e) => patch({ [key]: Number(e.target.value) })}
-          className="w-full bg-transparent font-display text-lg font-800 text-slate-700 outline-none"
-        />
-        <span className="text-xs font-700 text-slate-400">{unit}</span>
-      </div>
-    </label>
-  )
+  const num = (key, label, unit, min, max) => {
+    // Pendant l'édition on affiche le brouillon ; sinon la valeur du profil.
+    const shown = key in drafts ? drafts[key] : String(profil[key] ?? '')
+    return (
+      <label className="flex flex-col gap-1">
+        <span className="font-display text-xs font-800 text-slate-500">{label}</span>
+        <div className="flex items-center gap-2 rounded-2xl border-2 border-white bg-white/80 px-3 py-2 shadow-tile">
+          <input
+            type="text"
+            inputMode="numeric"
+            value={shown}
+            onChange={(e) => {
+              // chiffres uniquement, sans zéros en tête
+              const v = e.target.value.replace(/[^0-9]/g, '').replace(/^0+(?=\d)/, '')
+              setDrafts((d) => ({ ...d, [key]: v }))
+              if (v !== '') patch({ [key]: Number(v) })
+            }}
+            onBlur={() => {
+              // À la sortie du champ : on borne la valeur et on lâche le brouillon
+              // (un champ laissé vide revient à la dernière valeur du profil).
+              const raw = drafts[key]
+              if (raw != null && raw !== '') {
+                const clamped = Math.min(max, Math.max(min, Number(raw)))
+                if (clamped !== Number(raw)) patch({ [key]: clamped })
+              }
+              setDrafts((d) => {
+                const { [key]: _drop, ...rest } = d
+                return rest
+              })
+            }}
+            className="w-full bg-transparent font-display text-lg font-800 text-slate-700 outline-none"
+          />
+          <span className="text-xs font-700 text-slate-400">{unit}</span>
+        </div>
+      </label>
+    )
+  }
 
   return (
     <div className="mx-auto max-w-xl space-y-5">
