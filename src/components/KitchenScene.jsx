@@ -1,76 +1,121 @@
 import FurnitureSprite from './FurnitureSprite'
 
-// Correspondance zone d'inventaire → meuble de la cuisine.
-const FURNITURE_FOR = { frigo: 'fridge', sec: 'placards', epices: 'epices' }
+const TYPE_FOR = { frigo: 'fridge', sec: 'placards', epices: 'epices' }
 
-// La scène : une cuisine illustrée, chaleureuse, vue de face avec un léger
-// côté "maison de poupée". On tape un meuble pour l'ouvrir.
+// Placement de chaque meuble dans le coin de la pièce (en % de la scène).
+// épices = au mur (en haut-gauche) ; frigo & placard = au sol.
+const LAYOUT = {
+  epices: { left: '5%', top: '8%', width: '44%', height: '20%' },
+  frigo: { left: '7%', top: '34%', width: '36%', height: '58%' },
+  sec: { left: '48%', top: '46%', width: '46%', height: '46%' },
+}
+
+// La scène : un coin de cuisine minimaliste et calme, deux murs qui se
+// rejoignent, un sol en perspective, une lumière douce venant de la droite.
 export default function KitchenScene({ zones, counts, onOpen }) {
-  return (
-    <div className="mx-auto max-w-3xl">
-      <div
-        className="relative overflow-hidden rounded-[2rem] border-2 border-white shadow-tile"
-        style={{ background: 'linear-gradient(#fde7cf 0%, #fbe0c2 52%, #e9c39a 52%, #e2b487 100%)' }}
-      >
-        {/* --- Ambiance murale --- */}
-        {/* fenêtre avec ciel */}
-        <div
-          className="absolute left-5 top-5 hidden h-24 w-32 rounded-2xl border-[6px] border-white/80 shadow-md sm:block"
-          style={{ background: 'linear-gradient(#bfe8ff, #eaf7ff)' }}
-        >
-          <span className="absolute right-2 top-1.5 text-xl">☀️</span>
-          <div className="absolute inset-x-0 top-1/2 h-[3px] -translate-y-1/2 bg-white/80" />
-          <div className="absolute inset-y-0 left-1/2 w-[3px] -translate-x-1/2 bg-white/80" />
-        </div>
-        {/* suspension lumineuse */}
-        <div className="absolute left-1/2 top-0 hidden -translate-x-1/2 flex-col items-center sm:flex">
-          <div className="h-8 w-[3px] bg-slate-300/60" />
-          <div className="-mt-1 text-3xl drop-shadow">💡</div>
-        </div>
-        {/* petite plante + tapis */}
-        <span className="absolute bottom-3 right-4 text-4xl drop-shadow-sm">🪴</span>
-        <div className="absolute bottom-2 left-1/2 h-4 w-52 -translate-x-1/2 rounded-full bg-amber-800/10 blur-[1px]" />
+  // Ordre de rendu : le meuble le plus "au fond" d'abord.
+  const order = ['epices', 'frigo', 'sec']
+  const byId = Object.fromEntries(zones.map((z) => [z.id, z]))
 
-        {/* --- Meubles tappables --- */}
-        <div className="relative flex flex-wrap items-end justify-center gap-4 px-5 pb-8 pt-16 sm:gap-8 sm:pt-20">
-          {zones.map((zone) => {
-            const kind = FURNITURE_FOR[zone.id]
-            const n = counts[zone.id] ?? 0
-            // Le frigo est plus haut, les placards plus larges.
-            const dims =
-              kind === 'fridge'
-                ? 'w-28 h-48 sm:w-32 sm:h-56'
-                : kind === 'placards'
-                  ? 'w-36 h-40 sm:w-44 sm:h-44'
-                  : 'w-28 h-36 sm:w-32 sm:h-40'
+  return (
+    <div className="mx-auto w-full max-w-[400px]">
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-[0_18px_40px_rgba(60,50,40,0.14)] ring-1 ring-black/5">
+        {/* ---- LA PIÈCE (coin : 2 murs + sol) ---- */}
+        {/* mur gauche (légèrement dans l'ombre près du coin) */}
+        <div
+          className="absolute inset-0"
+          style={{
+            clipPath: 'polygon(0 0, 50% 0, 50% 60%, 0 74%)',
+            background: 'linear-gradient(90deg, #efe9e1 0%, #e4ddd2 100%)',
+          }}
+        />
+        {/* mur droit (mieux éclairé) */}
+        <div
+          className="absolute inset-0"
+          style={{
+            clipPath: 'polygon(50% 0, 100% 0, 100% 74%, 50% 60%)',
+            background: 'linear-gradient(90deg, #efe9e0 0%, #f6f1ea 100%)',
+          }}
+        />
+        {/* sol (perspective : arête en V vers le coin) */}
+        <div
+          className="absolute inset-0"
+          style={{
+            clipPath: 'polygon(0 74%, 50% 60%, 100% 74%, 100% 100%, 0 100%)',
+            background: 'linear-gradient(180deg, #ddceb6 0%, #cdbb9f 100%)',
+          }}
+        />
+        {/* occlusion douce à la jonction mur/sol */}
+        <div
+          className="absolute inset-0"
+          style={{
+            clipPath: 'polygon(0 74%, 50% 60%, 100% 74%, 100% 79%, 50% 66%, 0 79%)',
+            background: 'rgba(70,55,40,0.14)',
+            filter: 'blur(2px)',
+          }}
+        />
+        {/* arête verticale du coin (ombre douce) */}
+        <div
+          className="absolute top-0"
+          style={{
+            left: 'calc(50% - 14px)',
+            width: '28px',
+            height: '60%',
+            background: 'linear-gradient(90deg, rgba(70,55,40,0) 0%, rgba(70,55,40,0.10) 50%, rgba(70,55,40,0) 100%)',
+            filter: 'blur(1px)',
+          }}
+        />
+        {/* lumière douce d'ambiance venant de la droite */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{ background: 'radial-gradient(120% 90% at 88% 10%, rgba(255,252,245,0.55), rgba(255,252,245,0) 60%)' }}
+        />
+
+        {/* ---- LES MEUBLES ---- */}
+        {order.map((zid) => {
+          const zone = byId[zid]
+          if (!zone) return null
+          const pos = LAYOUT[zid]
+          const n = counts[zid] ?? 0
+          return (
+            <button
+              key={zid}
+              onClick={() => onOpen(zid)}
+              className="group absolute flex flex-col items-center transition active:scale-[0.98]"
+              style={pos}
+              title={`Ouvrir : ${zone.nom}`}
+            >
+              <div className="relative h-full w-full transition-transform duration-200 ease-out group-hover:-translate-y-1">
+                <FurnitureSprite type={TYPE_FOR[zid]} className="h-full w-full" />
+              </div>
+            </button>
+          )
+        })}
+
+        {/* ---- ÉTIQUETTES + compteurs (au sol, sous les meubles) ---- */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-3 flex items-center justify-center gap-1.5 px-2">
+          {zones.map((z) => {
+            const n = counts[z.id] ?? 0
             return (
-              <button
-                key={zone.id}
-                onClick={() => onOpen(zone.id)}
-                className="group flex flex-col items-center gap-2 transition active:translate-y-0.5"
-                title={`Ouvrir : ${zone.nom}`}
+              <span
+                key={z.id}
+                className="flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 font-display text-[11px] font-800 text-slate-600 shadow-sm ring-1 ring-black/5 backdrop-blur"
               >
-                <div className="relative transition-transform duration-200 group-hover:-translate-y-1.5">
-                  <FurnitureSprite kind={kind} className={dims} />
-                  {/* pastille compteur */}
-                  <span
-                    className="absolute -right-2 -top-2 flex h-8 min-w-[2rem] items-center justify-center rounded-full border-2 border-white px-2 font-display text-sm font-800 text-white shadow"
-                    style={{ background: n > 0 ? '#34c58a' : '#c7cad2' }}
-                  >
-                    {n}
-                  </span>
-                </div>
-                <span className="rounded-full bg-white/85 px-3 py-1 font-display text-sm font-800 text-slate-700 shadow-tile">
-                  {zone.emoji} {zone.nom}
+                {z.emoji} {z.nom}
+                <span
+                  className="flex h-4 min-w-[1rem] items-center justify-center rounded-full px-1 text-[10px] font-800 text-white"
+                  style={{ background: n > 0 ? '#5b8f76' : '#c4bfb6' }}
+                >
+                  {n}
                 </span>
-              </button>
+              </span>
             )
           })}
         </div>
       </div>
 
-      <p className="mt-3 text-center font-body text-sm font-700 text-slate-400">
-        Tape un meuble pour l'ouvrir et voir ce qu'il y a dedans 👆
+      <p className="mt-3 text-center font-body text-sm font-600 text-slate-400">
+        Tape un meuble pour l'ouvrir 👆
       </p>
     </div>
   )

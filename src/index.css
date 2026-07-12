@@ -14,8 +14,10 @@ body,
 
 body {
   @apply font-body text-slate-700;
-  background: radial-gradient(circle at 20% 0%, #eafcff 0%, #fdf6ec 45%, #fef1e6 100%);
+  /* palette calme et neutre (blancs chauds → greige) */
+  background: radial-gradient(circle at 30% -10%, #f7f3ec 0%, #efe7db 55%, #e8ded0 100%);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 /* Empêche le double-tap zoom sur les boutons du "jeu" mobile */

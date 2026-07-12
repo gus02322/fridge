@@ -110,30 +110,20 @@ export default function App() {
   }
 
   return (
-    <div className="mx-auto flex min-h-full max-w-6xl flex-col px-4 pb-28 pt-5">
+    <div className="mx-auto flex min-h-full w-full max-w-md flex-col px-3 pb-10 pt-4">
       {/* Bandeau */}
-      <header className="mb-4 flex flex-wrap items-center gap-3">
-        <div className="flex items-center gap-2">
-          <span className="text-3xl">🧊</span>
-          <div>
-            <h1 className="font-display text-2xl font-800 leading-none text-slate-800">
-              Mon Frigo
-            </h1>
-            <p className="text-xs font-700 uppercase tracking-wide text-slate-400">
-Frigo · cuisine · semaine · nutrition
-            </p>
-          </div>
-        </div>
+      <header className="mb-3 flex items-center gap-2">
+        <span className="text-2xl">🧊</span>
+        <h1 className="font-display text-xl font-800 leading-none text-slate-800">Mon Frigo</h1>
 
-        <div className="ml-auto flex items-center gap-2">
-          <div className="flex items-center gap-2 rounded-2xl bg-white/80 px-3 py-2 shadow-tile">
-            <span className="text-lg">🧺</span>
-            <span className="font-display text-lg font-800 text-slate-700">{total}</span>
-            <span className="text-xs font-700 text-slate-400">en stock</span>
+        <div className="ml-auto flex items-center gap-1.5">
+          <div className="flex items-center gap-1 rounded-full bg-white/80 px-2.5 py-1.5 shadow-sm ring-1 ring-black/5">
+            <span className="text-sm">🧺</span>
+            <span className="font-display text-sm font-800 text-slate-700">{total}</span>
           </div>
           <button
             onClick={() => setMuted((m) => !m)}
-            className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/80 text-lg shadow-tile transition active:translate-y-0.5"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-white/80 text-base shadow-sm ring-1 ring-black/5 transition active:translate-y-0.5"
             title={muted ? 'Activer le son' : 'Couper le son'}
             aria-label="Son"
           >
@@ -141,31 +131,28 @@ Frigo · cuisine · semaine · nutrition
           </button>
           <button
             onClick={logOut}
-            className="flex h-11 items-center gap-1.5 rounded-2xl bg-white/80 px-3 text-lg shadow-tile transition active:translate-y-0.5"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-white/80 text-base shadow-sm ring-1 ring-black/5 transition active:translate-y-0.5"
             title={`Connecté : ${user?.email ?? ''} — se déconnecter`}
             aria-label="Se déconnecter"
           >
             👋
-            <span className="hidden max-w-[120px] truncate font-body text-xs font-700 text-slate-400 sm:inline">
-              {user?.email}
-            </span>
           </button>
         </div>
       </header>
 
       {/* Onglets */}
-      <div className="mb-5 flex gap-2">
+      <div className="mb-4 grid grid-cols-4 gap-1.5">
         {TABS.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setView(tab.id)}
-            className={`flex items-center gap-2 rounded-2xl px-4 py-2 font-display text-sm font-800 shadow-chunky transition active:translate-y-0.5 ${
+            className={`flex flex-col items-center gap-0.5 rounded-2xl py-2 font-display text-[11px] font-800 shadow-chunky transition active:translate-y-0.5 ${
               view === tab.id
                 ? 'bg-slate-800 text-white'
                 : 'bg-white/80 text-slate-500 hover:bg-white'
             }`}
           >
-            <span className="text-base">{tab.emoji}</span>
+            <span className="text-lg leading-none">{tab.emoji}</span>
             {tab.label}
           </button>
         ))}
