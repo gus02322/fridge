@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useLocalStorage } from './hooks/useLocalStorage'
-import { normNom } from './utils/planning'
+import { nomsMatch } from './utils/planning'
 import InventoryView from './components/InventoryView'
 import MenuView from './components/MenuView'
 import WeekView from './components/WeekView'
@@ -88,15 +88,14 @@ export default function App() {
     const touched = items.filter(
       (it) =>
         it.type === 'tracke' &&
-        besoins.some((ing) => normNom(ing.nom) === normNom(it.nom)),
+        besoins.some((ing) => nomsMatch(ing.nom, it.nom)),
     ).length
 
     setItems((prev) => {
       let next = prev
       for (const ing of besoins) {
-        const key = normNom(ing.nom)
         next = next.flatMap((it) => {
-          if (it.type !== 'tracke' || normNom(it.nom) !== key) return [it]
+          if (it.type !== 'tracke' || !nomsMatch(ing.nom, it.nom)) return [it]
           const conso = it.unite === 'niveau' ? 1 : ing.quantite ?? 1
           const q = it.quantite - conso
           return q > 0 ? [{ ...it, quantite: q }] : []

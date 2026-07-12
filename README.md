@@ -44,31 +44,38 @@ Pages).
 
 ### Ajouter / remplacer les recettes
 
-Tout vit dans **`src/data/recipes.json`** — un simple tableau JSON. Colle
-autant de recettes que tu veux en respectant ce format :
+Tout vit dans **`src/data/recipes.json`** : un objet `{ "recipes": [ … ] }`.
+Colle autant de recettes que tu veux dans le tableau, au format :
 
 ```json
 {
-  "titre": "Omelette aux champignons",
-  "temps_min": 12,
-  "portions_base": 2,
-  "calories": 290, "proteines": 20, "lipides": 22, "glucides": 4,
-  "etapes": ["Étape 1…", "Étape 2…"],
-  "ingredients": [
-    { "nom": "Œufs", "quantite": 4, "unite": "pièce" },
-    { "nom": "Beurre", "quantite": null, "unite": "" }
+  "recipes": [
+    {
+      "id": "r001",
+      "titre": "Omelette nature",
+      "ingredients": [
+        { "nom": "œufs", "quantite": 3, "unite": "pièce" },
+        { "nom": "beurre", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": ["Battre les œufs…", "Cuire dans le beurre…"],
+      "temps_min": 10,
+      "portions_base": 1,
+      "nutrition": { "calories": 300, "lipides": 24, "proteines": 19, "glucides": 2 }
+    }
   ]
 }
 ```
 
 - **Pas de champ `present`** : la présence est calculée en direct depuis le
-  frigo. Le `nom` d'un ingrédient doit correspondre au nom de l'item du frigo
-  (voir `src/data/catalog.js` : `Œufs`, `Champignons`, `Pâtes`, `Ail`,
-  `Huile d'olive`, `Sel`… — accents et casse ignorés au matching).
-- `quantite: null` (ou `unite: ""`) pour les basiques (sel, huile, ail…) :
-  affichés sans quantité et non mis à l'échelle par convive.
-- Nutrition (`calories`, `proteines`, `lipides`, `glucides`) par portion,
-  optionnelle.
+  frigo. Le matching est **tolérant** — accents, casse, **pluriel** et **noms
+  composés** : `tomates` ↔ `Tomate`, `fromage râpé` ↔ `Fromage`,
+  `escalope de poulet` ↔ `Poulet`. Un ingrédient absent du frigo (ou qui n'a
+  pas d'item correspondant, ex. `lardons`, `chapelure`) compte comme manquant.
+- `nutrition` (`calories`, `proteines`, `lipides`, `glucides`) par portion,
+  optionnelle. Un format à plat (`"calories": 300` sur la recette) est aussi
+  accepté.
+- `id` optionnel (sinon un id est dérivé du titre). `unite` accepte les unités
+  ludiques : `pièce`, `portion`, `paquet`, ou un niveau `peu`/`moyen`/`beaucoup`.
 
 Fichiers clés : `src/data/recipes.json` (les recettes),
 `src/utils/menu.js` (matching frigo, tri, liste de courses),

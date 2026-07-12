@@ -1,206 +1,577 @@
-[
-  {
-    "titre": "Omelette aux champignons",
-    "temps_min": 12,
-    "portions_base": 2,
-    "calories": 290,
-    "proteines": 20,
-    "lipides": 22,
-    "glucides": 3,
-    "etapes": [
-      "Émince les champignons et fais-les revenir au beurre.",
-      "Bats les œufs, sale, poivre, verse dans la poêle.",
-      "Plie l'omelette quand elle est encore baveuse."
-    ],
-    "ingredients": [
-      { "nom": "Œufs", "quantite": 4, "unite": "pièce" },
-      { "nom": "Champignons", "quantite": 1, "unite": "portion" },
-      { "nom": "Beurre", "quantite": null, "unite": "" },
-      { "nom": "Sel", "quantite": null, "unite": "" },
-      { "nom": "Poivre", "quantite": null, "unite": "" }
-    ]
-  },
-  {
-    "titre": "Pâtes à l'ail et huile d'olive",
-    "temps_min": 15,
-    "portions_base": 2,
-    "calories": 420,
-    "proteines": 12,
-    "lipides": 14,
-    "glucides": 60,
-    "etapes": [
-      "Fais cuire les pâtes al dente.",
-      "Fais blondir l'ail dans l'huile d'olive.",
-      "Mélange, sale, ajoute le basilic ciselé."
-    ],
-    "ingredients": [
-      { "nom": "Pâtes", "quantite": 1, "unite": "paquet" },
-      { "nom": "Ail", "quantite": null, "unite": "" },
-      { "nom": "Huile d'olive", "quantite": null, "unite": "" },
-      { "nom": "Sel", "quantite": null, "unite": "" },
-      { "nom": "Basilic", "quantite": null, "unite": "" }
-    ]
-  },
-  {
-    "titre": "Poulet rôti aux pommes de terre",
-    "temps_min": 50,
-    "portions_base": 2,
-    "calories": 520,
-    "proteines": 40,
-    "lipides": 22,
-    "glucides": 35,
-    "etapes": [
-      "Enrobe le poulet et les pommes de terre d'huile d'olive et d'herbes.",
-      "Enfourne à 200°C pendant 40 min.",
-      "Sale à la sortie du four."
-    ],
-    "ingredients": [
-      { "nom": "Poulet", "quantite": 2, "unite": "portion" },
-      { "nom": "Pommes de terre", "quantite": 1, "unite": "niveau" },
-      { "nom": "Huile d'olive", "quantite": null, "unite": "" },
-      { "nom": "Herbes de Provence", "quantite": null, "unite": "" },
-      { "nom": "Sel", "quantite": null, "unite": "" }
-    ]
-  },
-  {
-    "titre": "Salade tomate & avocat",
-    "temps_min": 10,
-    "portions_base": 2,
-    "calories": 260,
-    "proteines": 4,
-    "lipides": 22,
-    "glucides": 12,
-    "etapes": [
-      "Coupe les tomates et l'avocat en morceaux.",
-      "Assaisonne d'huile d'olive, sel et poivre."
-    ],
-    "ingredients": [
-      { "nom": "Tomate", "quantite": 2, "unite": "pièce" },
-      { "nom": "Avocat", "quantite": 1, "unite": "pièce" },
-      { "nom": "Huile d'olive", "quantite": null, "unite": "" },
-      { "nom": "Sel", "quantite": null, "unite": "" },
-      { "nom": "Poivre", "quantite": null, "unite": "" }
-    ]
-  },
-  {
-    "titre": "Riz sauté aux légumes",
-    "temps_min": 25,
-    "portions_base": 2,
-    "calories": 380,
-    "proteines": 9,
-    "lipides": 8,
-    "glucides": 68,
-    "etapes": [
-      "Fais cuire le riz.",
-      "Fais sauter oignon, carotte et poivron émincés.",
-      "Ajoute le riz et la sauce soja, mélange à feu vif."
-    ],
-    "ingredients": [
-      { "nom": "Riz", "quantite": 1, "unite": "paquet" },
-      { "nom": "Carotte", "quantite": 1, "unite": "pièce" },
-      { "nom": "Poivron", "quantite": 1, "unite": "pièce" },
-      { "nom": "Oignon", "quantite": 1, "unite": "pièce" },
-      { "nom": "Sauce soja", "quantite": null, "unite": "" }
-    ]
-  },
-  {
-    "titre": "Curry de lentilles",
-    "temps_min": 35,
-    "portions_base": 3,
-    "calories": 410,
-    "proteines": 18,
-    "lipides": 10,
-    "glucides": 60,
-    "etapes": [
-      "Fais revenir oignon et ail.",
-      "Ajoute les lentilles, le curry et le lait, couvre d'eau.",
-      "Laisse mijoter 25 min jusqu'à ce que ce soit fondant."
-    ],
-    "ingredients": [
-      { "nom": "Lentilles", "quantite": 1, "unite": "paquet" },
-      { "nom": "Oignon", "quantite": 1, "unite": "pièce" },
-      { "nom": "Ail", "quantite": null, "unite": "" },
-      { "nom": "Curry", "quantite": null, "unite": "" },
-      { "nom": "Lait", "quantite": 1, "unite": "paquet" }
-    ]
-  },
-  {
-    "titre": "Œufs brouillés sur pain",
-    "temps_min": 10,
-    "portions_base": 1,
-    "calories": 350,
-    "proteines": 18,
-    "lipides": 18,
-    "glucides": 30,
-    "etapes": [
-      "Bats les œufs et fais-les brouiller doucement au beurre.",
-      "Sale, sers sur du pain grillé."
-    ],
-    "ingredients": [
-      { "nom": "Œufs", "quantite": 3, "unite": "pièce" },
-      { "nom": "Pain", "quantite": 2, "unite": "pièce" },
-      { "nom": "Beurre", "quantite": null, "unite": "" },
-      { "nom": "Sel", "quantite": null, "unite": "" }
-    ]
-  },
-  {
-    "titre": "Soupe de brocoli",
-    "temps_min": 30,
-    "portions_base": 3,
-    "calories": 180,
-    "proteines": 6,
-    "lipides": 10,
-    "glucides": 16,
-    "etapes": [
-      "Fais fondre l'oignon, ajoute le brocoli et couvre d'eau.",
-      "Cuis 20 min, mixe avec la crème, sale et poivre."
-    ],
-    "ingredients": [
-      { "nom": "Brocoli", "quantite": 2, "unite": "pièce" },
-      { "nom": "Oignon", "quantite": 1, "unite": "pièce" },
-      { "nom": "Crème", "quantite": null, "unite": "" },
-      { "nom": "Sel", "quantite": null, "unite": "" },
-      { "nom": "Poivre", "quantite": null, "unite": "" }
-    ]
-  },
-  {
-    "titre": "Poêlée poulet & courgette",
-    "temps_min": 25,
-    "portions_base": 2,
-    "calories": 430,
-    "proteines": 38,
-    "lipides": 20,
-    "glucides": 14,
-    "etapes": [
-      "Coupe le poulet et les courgettes en morceaux.",
-      "Fais sauter à l'huile d'olive avec l'ail et le paprika.",
-      "Sale en fin de cuisson."
-    ],
-    "ingredients": [
-      { "nom": "Poulet", "quantite": 2, "unite": "portion" },
-      { "nom": "Courgette", "quantite": 2, "unite": "pièce" },
-      { "nom": "Ail", "quantite": null, "unite": "" },
-      { "nom": "Huile d'olive", "quantite": null, "unite": "" },
-      { "nom": "Paprika", "quantite": null, "unite": "" },
-      { "nom": "Sel", "quantite": null, "unite": "" }
-    ]
-  },
-  {
-    "titre": "Yaourt aux fraises & miel",
-    "temps_min": 5,
-    "portions_base": 2,
-    "calories": 160,
-    "proteines": 6,
-    "lipides": 3,
-    "glucides": 26,
-    "etapes": [
-      "Coupe les fraises.",
-      "Mélange au yaourt, nappe de miel."
-    ],
-    "ingredients": [
-      { "nom": "Yaourt", "quantite": 2, "unite": "pièce" },
-      { "nom": "Fraises", "quantite": 1, "unite": "portion" },
-      { "nom": "Miel", "quantite": null, "unite": "" }
-    ]
-  }
-]
+{
+  "recipes": [
+    {
+      "id": "r001",
+      "titre": "Omelette nature",
+      "ingredients": [
+        { "nom": "œufs", "quantite": 3, "unite": "pièce" },
+        { "nom": "beurre", "quantite": 1, "unite": "peu" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" },
+        { "nom": "poivre", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Casser les œufs dans un bol, saler et poivrer, battre à la fourchette.",
+        "Faire fondre le beurre dans une poêle chaude.",
+        "Verser les œufs, laisser prendre puis replier l'omelette.",
+        "Servir aussitôt."
+      ],
+      "temps_min": 10,
+      "portions_base": 1,
+      "nutrition": { "calories": 300, "lipides": 24, "proteines": 19, "glucides": 2 }
+    },
+    {
+      "id": "r002",
+      "titre": "Œufs brouillés",
+      "ingredients": [
+        { "nom": "œufs", "quantite": 3, "unite": "pièce" },
+        { "nom": "beurre", "quantite": 1, "unite": "peu" },
+        { "nom": "lait", "quantite": 1, "unite": "peu" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Battre les œufs avec un peu de lait et de sel.",
+        "Faire fondre le beurre à feu doux.",
+        "Verser les œufs et remuer sans arrêt jusqu'à une texture crémeuse.",
+        "Retirer du feu encore un peu baveux."
+      ],
+      "temps_min": 10,
+      "portions_base": 1,
+      "nutrition": { "calories": 320, "lipides": 25, "proteines": 20, "glucides": 3 }
+    },
+    {
+      "id": "r003",
+      "titre": "Œuf au plat",
+      "ingredients": [
+        { "nom": "œufs", "quantite": 2, "unite": "pièce" },
+        { "nom": "huile d'olive", "quantite": 1, "unite": "peu" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Chauffer un peu d'huile dans une poêle.",
+        "Casser les œufs délicatement dans la poêle.",
+        "Cuire jusqu'à ce que le blanc soit pris, saler.",
+        "Servir avec du pain si disponible."
+      ],
+      "temps_min": 6,
+      "portions_base": 1,
+      "nutrition": { "calories": 200, "lipides": 16, "proteines": 13, "glucides": 1 }
+    },
+    {
+      "id": "r004",
+      "titre": "Pâtes au beurre",
+      "ingredients": [
+        { "nom": "pâtes", "quantite": 1, "unite": "portion" },
+        { "nom": "beurre", "quantite": 1, "unite": "moyen" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Cuire les pâtes dans l'eau bouillante salée selon le paquet.",
+        "Égoutter en gardant un peu d'eau de cuisson.",
+        "Mélanger avec le beurre et un peu d'eau de cuisson.",
+        "Servir chaud."
+      ],
+      "temps_min": 15,
+      "portions_base": 1,
+      "nutrition": { "calories": 420, "lipides": 14, "proteines": 11, "glucides": 62 }
+    },
+    {
+      "id": "r005",
+      "titre": "Pâtes à l'ail et huile d'olive",
+      "ingredients": [
+        { "nom": "pâtes", "quantite": 1, "unite": "portion" },
+        { "nom": "ail", "quantite": 2, "unite": "pièce" },
+        { "nom": "huile d'olive", "quantite": 1, "unite": "moyen" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Cuire les pâtes dans l'eau bouillante salée.",
+        "Faire revenir l'ail émincé dans l'huile d'olive à feu doux.",
+        "Égoutter les pâtes et les mélanger à l'huile d'ail.",
+        "Servir aussitôt."
+      ],
+      "temps_min": 15,
+      "portions_base": 1,
+      "nutrition": { "calories": 450, "lipides": 16, "proteines": 11, "glucides": 64 }
+    },
+    {
+      "id": "r006",
+      "titre": "Pâtes à la sauce tomate",
+      "ingredients": [
+        { "nom": "pâtes", "quantite": 1, "unite": "portion" },
+        { "nom": "tomates", "quantite": 2, "unite": "pièce" },
+        { "nom": "oignon", "quantite": 1, "unite": "pièce" },
+        { "nom": "ail", "quantite": 1, "unite": "pièce" },
+        { "nom": "huile d'olive", "quantite": 1, "unite": "peu" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Faire revenir l'oignon et l'ail émincés dans l'huile.",
+        "Ajouter les tomates coupées, laisser mijoter 15 min.",
+        "Cuire les pâtes en parallèle.",
+        "Mélanger et servir."
+      ],
+      "temps_min": 25,
+      "portions_base": 2,
+      "nutrition": { "calories": 400, "lipides": 8, "proteines": 12, "glucides": 70 }
+    },
+    {
+      "id": "r007",
+      "titre": "Pâtes carbonara simplifiée",
+      "ingredients": [
+        { "nom": "pâtes", "quantite": 2, "unite": "portion" },
+        { "nom": "œufs", "quantite": 2, "unite": "pièce" },
+        { "nom": "lardons", "quantite": 1, "unite": "paquet" },
+        { "nom": "fromage râpé", "quantite": 1, "unite": "moyen" },
+        { "nom": "poivre", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Cuire les pâtes dans l'eau bouillante salée.",
+        "Faire dorer les lardons à la poêle.",
+        "Battre les œufs avec le fromage et du poivre.",
+        "Hors du feu, mélanger pâtes chaudes, lardons et œufs pour une sauce crémeuse."
+      ],
+      "temps_min": 20,
+      "portions_base": 2,
+      "nutrition": { "calories": 600, "lipides": 26, "proteines": 28, "glucides": 62 }
+    },
+    {
+      "id": "r008",
+      "titre": "Riz nature",
+      "ingredients": [
+        { "nom": "riz", "quantite": 1, "unite": "portion" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Rincer le riz.",
+        "Cuire dans l'eau bouillante salée selon le paquet.",
+        "Égoutter et servir."
+      ],
+      "temps_min": 15,
+      "portions_base": 1,
+      "nutrition": { "calories": 350, "lipides": 1, "proteines": 7, "glucides": 77 }
+    },
+    {
+      "id": "r009",
+      "titre": "Riz cantonais simplifié",
+      "ingredients": [
+        { "nom": "riz", "quantite": 2, "unite": "portion" },
+        { "nom": "œufs", "quantite": 2, "unite": "pièce" },
+        { "nom": "petits pois", "quantite": 1, "unite": "moyen" },
+        { "nom": "jambon", "quantite": 1, "unite": "paquet" },
+        { "nom": "huile d'olive", "quantite": 1, "unite": "peu" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Cuire le riz et le laisser refroidir un peu.",
+        "Faire une omelette et la couper en petits morceaux.",
+        "Faire sauter le riz avec le jambon et les petits pois.",
+        "Ajouter l'omelette, mélanger et servir."
+      ],
+      "temps_min": 25,
+      "portions_base": 2,
+      "nutrition": { "calories": 480, "lipides": 12, "proteines": 20, "glucides": 72 }
+    },
+    {
+      "id": "r010",
+      "titre": "Riz au lait",
+      "ingredients": [
+        { "nom": "riz", "quantite": 1, "unite": "portion" },
+        { "nom": "lait", "quantite": 1, "unite": "beaucoup" },
+        { "nom": "sucre", "quantite": 1, "unite": "moyen" }
+      ],
+      "etapes": [
+        "Cuire le riz doucement dans le lait sucré.",
+        "Remuer régulièrement jusqu'à une texture crémeuse.",
+        "Laisser tiédir avant de servir."
+      ],
+      "temps_min": 30,
+      "portions_base": 2,
+      "nutrition": { "calories": 320, "lipides": 6, "proteines": 9, "glucides": 58 }
+    },
+    {
+      "id": "r011",
+      "titre": "Purée de pommes de terre",
+      "ingredients": [
+        { "nom": "pommes de terre", "quantite": 4, "unite": "pièce" },
+        { "nom": "lait", "quantite": 1, "unite": "moyen" },
+        { "nom": "beurre", "quantite": 1, "unite": "moyen" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Éplucher et couper les pommes de terre.",
+        "Cuire à l'eau bouillante salée jusqu'à tendreté.",
+        "Écraser avec le lait chaud et le beurre.",
+        "Assaisonner et servir."
+      ],
+      "temps_min": 30,
+      "portions_base": 2,
+      "nutrition": { "calories": 300, "lipides": 10, "proteines": 6, "glucides": 46 }
+    },
+    {
+      "id": "r012",
+      "titre": "Pommes de terre sautées",
+      "ingredients": [
+        { "nom": "pommes de terre", "quantite": 4, "unite": "pièce" },
+        { "nom": "huile d'olive", "quantite": 1, "unite": "moyen" },
+        { "nom": "ail", "quantite": 1, "unite": "pièce" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Couper les pommes de terre en cubes.",
+        "Les faire dorer à la poêle dans l'huile chaude.",
+        "Ajouter l'ail en fin de cuisson, saler.",
+        "Servir bien doré."
+      ],
+      "temps_min": 25,
+      "portions_base": 2,
+      "nutrition": { "calories": 280, "lipides": 12, "proteines": 5, "glucides": 40 }
+    },
+    {
+      "id": "r013",
+      "titre": "Frites au four",
+      "ingredients": [
+        { "nom": "pommes de terre", "quantite": 4, "unite": "pièce" },
+        { "nom": "huile d'olive", "quantite": 1, "unite": "moyen" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Couper les pommes de terre en bâtonnets.",
+        "Mélanger avec l'huile et le sel.",
+        "Enfourner à 220°C environ 30 min en retournant à mi-cuisson."
+      ],
+      "temps_min": 35,
+      "portions_base": 2,
+      "nutrition": { "calories": 260, "lipides": 9, "proteines": 5, "glucides": 42 }
+    },
+    {
+      "id": "r014",
+      "titre": "Salade de tomates",
+      "ingredients": [
+        { "nom": "tomates", "quantite": 3, "unite": "pièce" },
+        { "nom": "oignon", "quantite": 1, "unite": "pièce" },
+        { "nom": "huile d'olive", "quantite": 1, "unite": "peu" },
+        { "nom": "vinaigre", "quantite": 1, "unite": "peu" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Couper les tomates en rondelles et l'oignon finement.",
+        "Assaisonner d'huile, vinaigre et sel.",
+        "Laisser reposer 5 min avant de servir."
+      ],
+      "temps_min": 10,
+      "portions_base": 2,
+      "nutrition": { "calories": 120, "lipides": 8, "proteines": 2, "glucides": 10 }
+    },
+    {
+      "id": "r015",
+      "titre": "Salade verte vinaigrette",
+      "ingredients": [
+        { "nom": "salade", "quantite": 1, "unite": "pièce" },
+        { "nom": "huile d'olive", "quantite": 1, "unite": "peu" },
+        { "nom": "vinaigre", "quantite": 1, "unite": "peu" },
+        { "nom": "moutarde", "quantite": 1, "unite": "peu" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Laver et essorer la salade.",
+        "Préparer la vinaigrette en mélangeant moutarde, vinaigre, huile et sel.",
+        "Assaisonner juste avant de servir."
+      ],
+      "temps_min": 8,
+      "portions_base": 2,
+      "nutrition": { "calories": 90, "lipides": 8, "proteines": 1, "glucides": 4 }
+    },
+    {
+      "id": "r016",
+      "titre": "Omelette au fromage",
+      "ingredients": [
+        { "nom": "œufs", "quantite": 3, "unite": "pièce" },
+        { "nom": "fromage râpé", "quantite": 1, "unite": "moyen" },
+        { "nom": "beurre", "quantite": 1, "unite": "peu" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Battre les œufs avec le sel.",
+        "Cuire dans le beurre fondu.",
+        "Ajouter le fromage râpé, replier l'omelette.",
+        "Servir dès que le fromage fond."
+      ],
+      "temps_min": 10,
+      "portions_base": 1,
+      "nutrition": { "calories": 420, "lipides": 33, "proteines": 27, "glucides": 2 }
+    },
+    {
+      "id": "r017",
+      "titre": "Croque-monsieur",
+      "ingredients": [
+        { "nom": "pain de mie", "quantite": 2, "unite": "pièce" },
+        { "nom": "jambon", "quantite": 1, "unite": "paquet" },
+        { "nom": "fromage râpé", "quantite": 1, "unite": "moyen" },
+        { "nom": "beurre", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Beurrer les tranches de pain.",
+        "Garnir de jambon et de fromage.",
+        "Faire dorer à la poêle ou au four jusqu'à ce que le fromage fonde."
+      ],
+      "temps_min": 12,
+      "portions_base": 1,
+      "nutrition": { "calories": 450, "lipides": 24, "proteines": 24, "glucides": 34 }
+    },
+    {
+      "id": "r018",
+      "titre": "Sandwich jambon-beurre",
+      "ingredients": [
+        { "nom": "pain", "quantite": 1, "unite": "pièce" },
+        { "nom": "jambon", "quantite": 1, "unite": "paquet" },
+        { "nom": "beurre", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Couper le pain et le beurrer.",
+        "Ajouter le jambon.",
+        "Refermer et déguster."
+      ],
+      "temps_min": 5,
+      "portions_base": 1,
+      "nutrition": { "calories": 380, "lipides": 14, "proteines": 18, "glucides": 44 }
+    },
+    {
+      "id": "r019",
+      "titre": "Soupe à l'oignon",
+      "ingredients": [
+        { "nom": "oignon", "quantite": 3, "unite": "pièce" },
+        { "nom": "beurre", "quantite": 1, "unite": "moyen" },
+        { "nom": "farine", "quantite": 1, "unite": "peu" },
+        { "nom": "fromage râpé", "quantite": 1, "unite": "moyen" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Émincer et faire dorer les oignons dans le beurre.",
+        "Saupoudrer de farine, mélanger.",
+        "Ajouter de l'eau, laisser mijoter 20 min.",
+        "Servir gratiné avec du fromage."
+      ],
+      "temps_min": 35,
+      "portions_base": 2,
+      "nutrition": { "calories": 260, "lipides": 14, "proteines": 9, "glucides": 26 }
+    },
+    {
+      "id": "r020",
+      "titre": "Soupe de légumes",
+      "ingredients": [
+        { "nom": "pommes de terre", "quantite": 2, "unite": "pièce" },
+        { "nom": "carottes", "quantite": 2, "unite": "pièce" },
+        { "nom": "oignon", "quantite": 1, "unite": "pièce" },
+        { "nom": "poireau", "quantite": 1, "unite": "pièce" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Éplucher et couper tous les légumes.",
+        "Couvrir d'eau, saler, cuire 25 min.",
+        "Mixer jusqu'à une texture lisse.",
+        "Servir chaud."
+      ],
+      "temps_min": 35,
+      "portions_base": 3,
+      "nutrition": { "calories": 150, "lipides": 3, "proteines": 4, "glucides": 28 }
+    },
+    {
+      "id": "r021",
+      "titre": "Quiche sans pâte",
+      "ingredients": [
+        { "nom": "œufs", "quantite": 4, "unite": "pièce" },
+        { "nom": "lait", "quantite": 1, "unite": "moyen" },
+        { "nom": "farine", "quantite": 1, "unite": "moyen" },
+        { "nom": "lardons", "quantite": 1, "unite": "paquet" },
+        { "nom": "fromage râpé", "quantite": 1, "unite": "moyen" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Battre les œufs avec le lait et la farine.",
+        "Ajouter les lardons et le fromage.",
+        "Verser dans un moule, enfourner à 180°C pendant 30 min."
+      ],
+      "temps_min": 40,
+      "portions_base": 3,
+      "nutrition": { "calories": 380, "lipides": 24, "proteines": 22, "glucides": 18 }
+    },
+    {
+      "id": "r022",
+      "titre": "Poulet rôti à la poêle",
+      "ingredients": [
+        { "nom": "poulet", "quantite": 2, "unite": "portion" },
+        { "nom": "huile d'olive", "quantite": 1, "unite": "peu" },
+        { "nom": "ail", "quantite": 2, "unite": "pièce" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" },
+        { "nom": "poivre", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Assaisonner le poulet de sel et poivre.",
+        "Le faire dorer dans l'huile chaude avec l'ail.",
+        "Cuire à cœur à feu moyen.",
+        "Servir avec un accompagnement."
+      ],
+      "temps_min": 25,
+      "portions_base": 2,
+      "nutrition": { "calories": 320, "lipides": 16, "proteines": 40, "glucides": 1 }
+    },
+    {
+      "id": "r023",
+      "titre": "Escalope panée",
+      "ingredients": [
+        { "nom": "escalope de poulet", "quantite": 2, "unite": "pièce" },
+        { "nom": "œufs", "quantite": 1, "unite": "pièce" },
+        { "nom": "farine", "quantite": 1, "unite": "moyen" },
+        { "nom": "chapelure", "quantite": 1, "unite": "moyen" },
+        { "nom": "huile d'olive", "quantite": 1, "unite": "moyen" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Passer l'escalope dans la farine, puis l'œuf battu, puis la chapelure.",
+        "Faire dorer à la poêle dans l'huile chaude des deux côtés.",
+        "Saler et servir."
+      ],
+      "temps_min": 20,
+      "portions_base": 2,
+      "nutrition": { "calories": 400, "lipides": 18, "proteines": 38, "glucides": 22 }
+    },
+    {
+      "id": "r024",
+      "titre": "Steak haché poêlé",
+      "ingredients": [
+        { "nom": "steak haché", "quantite": 1, "unite": "pièce" },
+        { "nom": "huile d'olive", "quantite": 1, "unite": "peu" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" },
+        { "nom": "poivre", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Chauffer un filet d'huile dans la poêle.",
+        "Cuire le steak selon la cuisson souhaitée.",
+        "Saler, poivrer et servir."
+      ],
+      "temps_min": 10,
+      "portions_base": 1,
+      "nutrition": { "calories": 280, "lipides": 20, "proteines": 24, "glucides": 0 }
+    },
+    {
+      "id": "r025",
+      "titre": "Ratatouille simple",
+      "ingredients": [
+        { "nom": "courgette", "quantite": 1, "unite": "pièce" },
+        { "nom": "aubergine", "quantite": 1, "unite": "pièce" },
+        { "nom": "poivron", "quantite": 1, "unite": "pièce" },
+        { "nom": "tomates", "quantite": 2, "unite": "pièce" },
+        { "nom": "oignon", "quantite": 1, "unite": "pièce" },
+        { "nom": "huile d'olive", "quantite": 1, "unite": "moyen" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Couper tous les légumes en cubes.",
+        "Faire revenir l'oignon dans l'huile.",
+        "Ajouter les légumes, laisser mijoter 30 min.",
+        "Assaisonner et servir chaud ou froid."
+      ],
+      "temps_min": 40,
+      "portions_base": 3,
+      "nutrition": { "calories": 160, "lipides": 9, "proteines": 3, "glucides": 18 }
+    },
+    {
+      "id": "r026",
+      "titre": "Crêpes",
+      "ingredients": [
+        { "nom": "farine", "quantite": 1, "unite": "beaucoup" },
+        { "nom": "œufs", "quantite": 2, "unite": "pièce" },
+        { "nom": "lait", "quantite": 1, "unite": "beaucoup" },
+        { "nom": "beurre", "quantite": 1, "unite": "peu" },
+        { "nom": "sucre", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Mélanger la farine, les œufs et le lait en une pâte lisse.",
+        "Laisser reposer si possible.",
+        "Cuire de fines crêpes dans une poêle beurrée.",
+        "Garnir selon l'envie."
+      ],
+      "temps_min": 30,
+      "portions_base": 3,
+      "nutrition": { "calories": 260, "lipides": 8, "proteines": 9, "glucides": 38 }
+    },
+    {
+      "id": "r027",
+      "titre": "Pancakes",
+      "ingredients": [
+        { "nom": "farine", "quantite": 1, "unite": "beaucoup" },
+        { "nom": "œufs", "quantite": 1, "unite": "pièce" },
+        { "nom": "lait", "quantite": 1, "unite": "moyen" },
+        { "nom": "sucre", "quantite": 1, "unite": "peu" },
+        { "nom": "levure", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Mélanger farine, levure et sucre.",
+        "Ajouter l'œuf et le lait pour une pâte épaisse.",
+        "Cuire de petites galettes à la poêle des deux côtés."
+      ],
+      "temps_min": 20,
+      "portions_base": 2,
+      "nutrition": { "calories": 300, "lipides": 7, "proteines": 10, "glucides": 50 }
+    },
+    {
+      "id": "r028",
+      "titre": "Pain perdu",
+      "ingredients": [
+        { "nom": "pain", "quantite": 4, "unite": "pièce" },
+        { "nom": "œufs", "quantite": 2, "unite": "pièce" },
+        { "nom": "lait", "quantite": 1, "unite": "moyen" },
+        { "nom": "sucre", "quantite": 1, "unite": "moyen" },
+        { "nom": "beurre", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Battre les œufs avec le lait et le sucre.",
+        "Tremper les tranches de pain dans le mélange.",
+        "Faire dorer à la poêle dans le beurre des deux côtés."
+      ],
+      "temps_min": 15,
+      "portions_base": 2,
+      "nutrition": { "calories": 340, "lipides": 12, "proteines": 12, "glucides": 46 }
+    },
+    {
+      "id": "r029",
+      "titre": "Gratin de pâtes au fromage",
+      "ingredients": [
+        { "nom": "pâtes", "quantite": 2, "unite": "portion" },
+        { "nom": "fromage râpé", "quantite": 1, "unite": "beaucoup" },
+        { "nom": "lait", "quantite": 1, "unite": "moyen" },
+        { "nom": "beurre", "quantite": 1, "unite": "peu" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Cuire les pâtes et les égoutter.",
+        "Les mélanger avec le lait, le beurre et une partie du fromage.",
+        "Verser dans un plat, couvrir de fromage.",
+        "Gratiner au four à 200°C pendant 15 min."
+      ],
+      "temps_min": 30,
+      "portions_base": 2,
+      "nutrition": { "calories": 560, "lipides": 24, "proteines": 24, "glucides": 62 }
+    },
+    {
+      "id": "r030",
+      "titre": "Gratin dauphinois",
+      "ingredients": [
+        { "nom": "pommes de terre", "quantite": 5, "unite": "pièce" },
+        { "nom": "lait", "quantite": 1, "unite": "beaucoup" },
+        { "nom": "crème", "quantite": 1, "unite": "moyen" },
+        { "nom": "ail", "quantite": 1, "unite": "pièce" },
+        { "nom": "sel", "quantite": 1, "unite": "peu" }
+      ],
+      "etapes": [
+        "Émincer finement les pommes de terre.",
+        "Les disposer dans un plat frotté d'ail.",
+        "Couvrir de lait et de crème, saler.",
+        "Cuire au four à 180°C pendant 50 min."
+      ],
+      "temps_min": 60,
+      "portions_base": 3,
+      "nutrition": { "calories": 340, "lipides": 16, "proteines": 8, "glucides": 42 }
+    }
+  ]
+}

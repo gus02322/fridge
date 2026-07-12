@@ -2,7 +2,7 @@
 // frigo, normalisation, tri par niveau de déblocage, et déduction de la liste
 // de courses. Plus aucun appel réseau : tout est calculé côté client.
 
-import { normNom } from './planning'
+import { normNom, nomsMatch } from './planning'
 
 // État de déblocage façon jeu, par niveau.
 export const NIVEAU_META = {
@@ -13,30 +13,35 @@ export const NIVEAU_META = {
 
 const num = (v) => (Number.isFinite(+v) && v != null && v !== '' ? Math.round(+v) : null)
 
-// Ensemble des noms d'ingrédients réellement DISPONIBLES dans le frigo.
+// Accepte soit un tableau, soit un objet { recipes: [...] } (format du
+// fichier livré), et renvoie toujours le tableau de recettes.
+function toArray(recipes) {
+  if (Array.isArray(recipes)) return recipes
+  if (Array.isArray(recipes?.recipes)) return recipes.recipes
+  if (Array.isArray(recipes?.recettes)) return recipes.recettes
+  return []
+}
+
+// Noms des items réellement DISPONIBLES dans le frigo (pour le matching).
 //  - staple : présent tant que `present` n'est pas explicitement false.
 //  - tracké : présent si la quantité est > 0.
-// Le nom est normalisé (sans accents, minuscules) pour le matching.
-export function presentSet(items) {
-  const set = new Set()
-  for (const it of items || []) {
-    const dispo = it.type === 'staple' ? it.present !== false : (it.quantite ?? 0) > 0
-    if (dispo) set.add(normNom(it.nom))
-  }
-  return set
+export function fridgeNames(items) {
+  return (items || [])
+    .filter((it) => (it.type === 'staple' ? it.present !== false : (it.quantite ?? 0) > 0))
+    .map((it) => it.nom)
 }
 
 // Normalise une recette brute et CALCULE son niveau à partir des ingrédients
-// présents dans le frigo. Un ingrédient est `present` s'il figure dans le
-// frigo (matching par nom normalisé). Le niveau dépend du nombre de manquants :
-//   0 manquant -> cuisinable · 1 -> presque · 2+ -> ambitieuse.
-export function normalizeRecette(r, index, present = new Set()) {
+// présents dans le frigo. `isPresent(nom)` teste un ingrédient contre le frigo
+// (matching tolérant : accents, pluriel, noms composés). Le niveau dépend du
+// nombre de manquants : 0 -> cuisinable · 1 -> presque · 2+ -> ambitieuse.
+export function normalizeRecette(r, index, isPresent = () => false) {
   const ingredients = (Array.isArray(r?.ingredients) ? r.ingredients : [])
     .map((i) => ({
       nom: String(i?.nom ?? '').trim(),
       quantite: i?.quantite ?? null,
       unite: String(i?.unite ?? '').trim(),
-      present: present.has(normNom(i?.nom)),
+      present: isPresent(i?.nom),
     }))
     .filter((i) => i.nom)
 
@@ -44,8 +49,11 @@ export function normalizeRecette(r, index, present = new Set()) {
   const niveau =
     manquants === 0 ? 'cuisinable' : manquants === 1 ? 'presque' : 'ambitieuse'
 
+  // Nutrition : soit imbriquée { nutrition: {...} }, soit à plat sur la recette.
+  const n = r?.nutrition ?? r ?? {}
+
   return {
-    id: `${index}-${String(r?.titre ?? '').slice(0, 24)}`,
+    id: r?.id ? String(r.id) : `${index}-${String(r?.titre ?? '').slice(0, 24)}`,
     titre: String(r?.titre ?? 'Recette sans nom').trim(),
     niveau,
     manquants,
@@ -54,10 +62,10 @@ export function normalizeRecette(r, index, present = new Set()) {
     temps_min: Number.isFinite(+r?.temps_min) ? +r.temps_min : null,
     portions_base: Number.isFinite(+r?.portions_base) ? +r.portions_base : null,
     // Nutrition estimée par portion. Null si absent.
-    calories: num(r?.calories),
-    proteines: num(r?.proteines),
-    lipides: num(r?.lipides),
-    glucides: num(r?.glucides),
+    calories: num(n.calories),
+    proteines: num(n.proteines),
+    lipides: num(n.lipides),
+    glucides: num(n.glucides),
   }
 }
 
@@ -65,9 +73,10 @@ export function normalizeRecette(r, index, present = new Set()) {
 // cuisinable en haut, puis presque, puis ambitieuse (et à niveau égal, le
 // moins de manquants et le plus rapide en premier).
 export function matchMenu(recipes, items) {
-  const present = presentSet(items)
-  return (Array.isArray(recipes) ? recipes : [])
-    .map((r, i) => normalizeRecette(r, i, present))
+  const dispo = fridgeNames(items)
+  const isPresent = (nom) => dispo.some((f) => nomsMatch(nom, f))
+  return toArray(recipes)
+    .map((r, i) => normalizeRecette(r, i, isPresent))
     .filter((r) => r.ingredients.length > 0)
     .sort(
       (a, b) =>
@@ -84,7 +93,7 @@ export function buildListeCourses(recettes) {
   for (const r of recettes) {
     for (const ing of r.ingredients) {
       if (ing.present) continue
-      const key = ing.nom.toLowerCase()
+      const key = normNom(ing.nom)
       if (!map.has(key)) {
         map.set(key, { nom: ing.nom, unite: ing.unite, plats: [] })
       }

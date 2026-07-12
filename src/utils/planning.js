@@ -55,6 +55,43 @@ export function normNom(s) {
     .trim()
 }
 
+// Mots vides ignorés au découpage en tokens (français courant).
+const MOTS_VIDES = new Set(['de', 'du', 'des', 'a', 'au', 'aux', 'la', 'le', 'les', 'l', 'd', 'et', 'en', 'ou'])
+
+// Passe un mot au singulier de façon prudente (pluriels français simples).
+function singulier(mot) {
+  return mot.length > 3 ? mot.replace(/[sx]$/, '') : mot
+}
+
+// Découpe un nom en tokens significatifs, sans accents, au singulier.
+// « Escalope de poulet » -> ['escalope', 'poulet'] ; « tomates » -> ['tomate'].
+function tokens(s) {
+  return normNom(s)
+    .split(/[^a-z0-9œ]+/i)
+    .filter((t) => t && !MOTS_VIDES.has(t))
+    .map(singulier)
+}
+
+// Un ingrédient de recette correspond-il à un item du frigo ? Tolérant aux
+// accents, au pluriel et aux noms composés : « tomates » ↔ « Tomate »,
+// « fromage râpé » ↔ « Fromage », « escalope de poulet » ↔ « Poulet ».
+// Règle : égalité normalisée, OU tous les tokens de l'un sont contenus dans
+// ceux de l'autre (le nom court doit apparaître en entier dans le long).
+export function nomsMatch(a, b) {
+  const na = normNom(a)
+  const nb = normNom(b)
+  if (!na || !nb) return false
+  if (na === nb) return true
+  const ta = tokens(a)
+  const tb = tokens(b)
+  if (ta.length === 0 || tb.length === 0) return false
+  const setA = new Set(ta)
+  const setB = new Set(tb)
+  const bDansA = tb.every((t) => setA.has(t))
+  const aDansB = ta.every((t) => setB.has(t))
+  return bDansA || aDansB
+}
+
 // Facteur d'échelle : convives / portions de base de la recette.
 export function facteur(recette, convives) {
   const base =
