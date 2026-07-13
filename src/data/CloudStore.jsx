@@ -103,7 +103,9 @@ export function useCloudState(key, initial) {
   const { data, ready, setField } = ctx
   const field = toField(key)
 
-  const has = data[field] !== undefined
+  // On traite `null` comme « absent » (une ancienne valeur nulle héritée ne doit
+  // pas écraser la valeur par défaut d'un composant → sinon écran blanc).
+  const has = data[field] !== undefined && data[field] !== null
   const value = has ? data[field] : initial
 
   // Migration douce depuis localStorage (une fois, si le champ n'existe pas).
@@ -111,7 +113,10 @@ export function useCloudState(key, initial) {
     if (!ready || has) return
     try {
       const raw = window.localStorage.getItem(key)
-      if (raw != null) setField(field, JSON.parse(raw))
+      if (raw != null) {
+        const parsed = JSON.parse(raw)
+        if (parsed != null) setField(field, parsed)
+      }
     } catch {
       /* ignore */
     }
@@ -121,7 +126,7 @@ export function useCloudState(key, initial) {
   const setValue = useCallback(
     (v) => {
       setField(field, (cur) => {
-        const base = cur !== undefined ? cur : initial
+        const base = cur !== undefined && cur !== null ? cur : initial
         return typeof v === 'function' ? v(base) : v
       })
     },

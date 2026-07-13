@@ -7,10 +7,13 @@ const DEFAULT = { sexe: 'femme', age: 30, poids: 65, taille: 168, activite: 'act
 // Profil utilisateur + besoin calorique quotidien (Mifflin-St Jeor).
 // Le résultat est stocké dans le profil persisté.
 export default function ProfileView() {
-  const [profil, setProfil] = useCloudState('frigo.profil.v1', {
+  const [rawProfil, setProfil] = useCloudState('frigo.profil.v1', {
     ...DEFAULT,
     besoin: besoinCalorique(DEFAULT),
   })
+
+  // Filet de sécurité : une valeur nulle/corrompue ne doit jamais casser l'écran.
+  const profil = rawProfil && typeof rawProfil === 'object' ? rawProfil : { ...DEFAULT }
 
   // Brouillons de saisie par champ : permettent de vider/retaper un nombre
   // librement (sans « 0 » fantôme) pendant l'édition.
@@ -18,7 +21,8 @@ export default function ProfileView() {
 
   function patch(p) {
     setProfil((prev) => {
-      const next = { ...prev, ...p }
+      const base = prev && typeof prev === 'object' ? prev : DEFAULT
+      const next = { ...base, ...p }
       return { ...next, besoin: besoinCalorique(next) }
     })
   }
